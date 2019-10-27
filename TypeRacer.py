@@ -26,14 +26,8 @@ def wait_attr(driver, Element):
     a = element.get_attribute("disabled")
     return a == "false" or a == "" or a == None 
 
-def start_hacking():
-    option = webdriver.ChromeOptions()
-    # option.add_argument(" — incognito")
-    driver = webdriver.Chrome("chromedriver.exe", chrome_options=option)
-
-    driver.get("https://play.typeracer.com/")
-    # time.sleep(10)
-    # webdriver.ActionChains(driver).key_down(Keys.CONTROL).key_down(Keys.ALT).send_keys("I").key_up(Keys.CONTROL).key_up(Keys.ALT).build().perform()
+def race(driver):
+	# webdriver.ActionChains(driver).key_down(Keys.CONTROL).key_down(Keys.ALT).send_keys("I").key_up(Keys.CONTROL).key_up(Keys.ALT).build().perform()
     EnterTypeRacing = wait_until(driver, By.XPATH, '//*[@id="dUI"]/table/tbody/tr[2]/td[2]/div/div[1]/div/table/tbody/tr[2]/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td/a')
     webdriver.ActionChains(driver)\
         .move_to_element(EnterTypeRacing)\
@@ -65,11 +59,22 @@ def start_hacking():
             InputBox.send_keys(Keys.SPACE)
         else:
             InputBox.send_keys(c)
-        # time.sleep(0.015)
+        time.sleep(0.015)
     
-    while(True):
-        pass
+    time.sleep(5)
+    driver.refresh()
+    race(driver)
+
+
+def start_hacking():
+    option = webdriver.ChromeOptions()
+    # option.add_argument(" — incognito")
+    driver = webdriver.Chrome("chromedriver.exe", chrome_options=option)
+
+    driver.get("https://play.typeracer.com/")
+    # time.sleep(10)
     
+    race(driver)
 
 
 
